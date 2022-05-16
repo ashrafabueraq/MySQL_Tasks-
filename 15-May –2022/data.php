@@ -48,14 +48,49 @@ else if($btt == 'delete'){
 
 }
 else{
-    $query4 = "SELECT * FROM employee";
-     
-    if(mysqli_query($conn,$query4)){
 
-        echo 'Select True';
-    }else{
-        echo 'Select false';
+
+    $query4 = "SELECT * FROM employee";
+    $result = mysqli_query($conn, $query4);
+
+
+    if($result){
+
+        $arr = $result->fetch_all();
+
+        echo "<table border='1'>
+        '<tr>'
+           <th>id</th>
+           <th>Fname</th>
+           <th>Lname</th>
+           <th>phone</th>
+           <th>salary</th>
+           <th>department</th> 
+        </tr>";
+        
+
+        foreach($arr as $key){
+
+            echo '<tr>';
+            foreach($key as $value){
+                echo '<td>'.$value.'</td>';
+            }
+            echo '</tr>';
+        }
+
+        echo '/table';
+
+
+
     }
+    else{
+        echo "Error: " . $query4. "<br>" .$conn->error;;
+    }
+
+
+
+
+    
 
 
 }
